@@ -92,27 +92,29 @@ class Message implements \ArrayAccess, \IteratorAggregate
         $this->data = $data;
     }
 
-    public function getIterator()
+    public function getIterator(): \Traversable
     {
         return new \ArrayIterator($this->data);
     }
 
-    public function offsetExists($key)
+    public function offsetExists($key): bool
     {
         return isset($this->data[$key]);
     }
-
+    
+    #[\ReturnTypeWillChange]
     public function offsetGet($key)
     {
         return isset($this->data[$key]) ? $this->data[$key] : null;
     }
 
+    #[\ReturnTypeWillChange]
     public function offsetSet($key, $value)
     {
         $this->data[$key] = $value;
     }
 
-    public function offsetUnset($key)
+    public function offsetUnset($key): void
     {
         unset($this->data[$key]);
     }
